@@ -3,7 +3,25 @@
 
 
 #-----------------------------so---------------------------
+self.cboGender.current(0)
+	self.cboGender.grid(row=1,column=3)
 
+	self.lblEmail = Label(InnerFrame,font=('arial',12,'bold'), text = "Email ",bd=7)
+	self.lblEmail.grid(row=1,column=4, sticky = W, padx = 5)
+	self.txtEmail = Entry(InnerFrame, font=('arial',12,'bold'),bd = 5, width = 35, justify = 'left', textvariable = Email)
+	self.txtEmail.grid(row=1,column=3)
+
+	self.lblMobile = Label(InnerFrame,font=('arial',12,'bold'), text = "Mobile ",bd=5)
+	self.lblMobile.grid(row=2,column=2, sticky = W, padx = 5)
+	self.txtMobile = Entry(InnerFrame, font=('arial',12,'bold'),bd = 5, width = 35, justify = 'left', textvariable = Email)
+	self.txtMobile.grid(row=2, column=3, sticky = W)
+	self.lblAddress = Label(InnerFrame,font=('arial',12,'bold'), text = "Type ",bd=7)
+	self.lblAddress.grid(row=2,column=4, sticky = W, padx = 5)
+
+	self.cboTyp = ttk.combobox(InnerFrame, width = 33, font=('arial',12,'bold'), state = 'readonly', textvariable = MType)		
+	self.cboType['values']=('Member Type','Annual Member','Quarterly','Monthly')
+	self.cboType.current(0)
+	self.cboType.grid(row=2,column=5)
 
 
 #-----------------------------sow---------------------------
