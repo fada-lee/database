@@ -25,3 +25,21 @@ self.cboGender.current(0)
 
 
 #-----------------------------sow---------------------------
+def MemberInfp(ev):
+#-----------------------------sow--------------------------- นาทีที่ 1:23.13  ลงไป
+    viewInfo = self.member_records.focus()
+    learnerData = self.member_records.item(viewInfo)
+    row = learnerData['values']
+
+    MemID.set(row[0])
+    Firstname.set(row[1])
+    Surname.set(row[2])
+    Address.set(row[3])
+    PoBox.set(row[4])
+    Gender.set(row[5])
+    Mobile.set(row[6])
+    Email.set(row[7])
+    MType.set(row[8])
+
+#-----------------------------sow--------------------------- 
+def update():
