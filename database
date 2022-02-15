@@ -1,9 +1,325 @@
 #------------------------------da-------------------------
+from re import L
+from tkinter import*
+from tkinter import ttk
+import tkinter.messagebox
+from turtle import width
+from matplotlib.pyplot import text
+import pymysql
+import random
 
+class MemberConnect:
+
+    def __init__(self,root):
+        self.root = root
+        blankSpace = " "
+        self.root.title(202 * blankSpace + "Mysql Connector")
+        self.root.resizable(width=False, height=False)
+        self.root.geometry("1360x700+0+0")
+
+
+        MemID =StringVar()
+        Firstname=StringVar()
+        Surname=StringVar()
+        Address=StringVar()
+        PoBox=StringVar()
+        Gender=StringVar()
+        Mobile=StringVar()
+        Email=StringVar()
+        Mtype=StringVar()
+
+        Search=StringVar()
+        MemIDBar=StringVar()
+        #=============================Exit
+        def iExit():
+            iExit =tkinter .messagebox.askyesno("Connector System", "Confirm if you want to exit")
+            if iExit > 0:
+                root.destroy()
+                return
+
+        #===============reset=================
+        def Reset():
+            MemID.set("")
+            MemIDBar.set("")
+            Firstname.set("")
+            Surname.set("")
+            Address.set("")
+            PoBox.set("")
+            Gender.set("")
+            Mtype.set("")
+            Mobile.set("")
+            Email.set("")
+            Search.set("")
+        #==========================Ref==============
+        def MemRef():
+            Refpay = random.randint(20000,709494)
+            Refpaid =(str(Refpay ))
+            RefBC =("Membership Number "+ str(Refpay))
+            MemID.set(Refpaid)
+            MemIDBar.set(RefBC)
+
+        #===========================FRAME===========================================
+        MainFrame = Frame(self.root , bd=10, width = 1350, height=668, relief = RIDGE, bg = 'cadetblue')
+        MainFrame.grid()
+        TitleFrames = Frame(MainFrame , bd=7, width = 1320, height=100, relief = RIDGE)
+        TitleFrames.grid(row=0,column=0)
+
+        TitleFrame = Frame(TitleFrames , bd=7, width = 1320, height=100, relief = RIDGE, bg = 'cadetblue')
+        TitleFrame.grid(row=0,column=0)
+
+        SearchFrame = Frame(MainFrame , bd=5, width = 1340, height=50, relief = RIDGE)
+        SearchFrame.grid(row=1,column=0)
+
+        MidFrame = Frame(MainFrame , bd=5, width = 1340, height=500, relief = RIDGE)
+        MidFrame.grid(row=3,column=0)
+
+        InnerFrame = Frame(MidFrame,bd=5, width =1340,height=180,padx=24,pady=4,relief=RIDGE)
+        InnerFrame.grid(row=0 ,column= 9)
+        ButtonFrame = Frame(MidFrame ,bd=7,width =1340, height=50 ,bg="cadet blue" ,relief=RIDGE)
+        ButtonFrame.grid(row= 1 ,column= 0)
+        TreeviewFrame = Frame(MidFrame ,bd=5,width =1340,height=400, padx=4,relief=RIDGE)#,bg="cadet blue"
+        TreeviewFrame.grid(row = 2 ,column = 0,padx=5,pady=0)
+
+        #==========================LABEL========================================================================
+        self.lblTitle = Label(TitleFrames, font=('arial',40,'bold'),text="Mysql Connection",bg="cadet blue",fg="white")
+        self.lblTitle.grid(row=0,column=0,padx=90)
+        self.lblHunter = Label(TitleFrames,font=('C39Hrp24DhTt', 60),text="Dynamic Hunter" ,fg="cadet blue" )
+        self.lblHunter.grid(row=0,column=1,padx=152)
+        #========
+        self.lblBarCode =Label(SearchFrame,font=('arial',12, 'bold'),text="Barcode")
+        self.lblBarCode.grid(row=0,column=0,padx=4,sticky=W)
+        self.txtBarCode = Entry(SearchFrame,font=('CCode39',13), width=26, textvariable=MemIDBar,justify='center')
+        self.txtBarCode.grid(row=0,column=1,padx=39)
+        #=========
+
+        self.lblmemberID =Label(InnerFrame,font=('arial',12, 'bold'),text="Member ID",bd=7,anchor='w',justify='left')
+        self.lblmemberID.grid(row=0,column=0,padx=5,sticky=W)
+        self.txtmemberID = Entry(InnerFrame,font=('arial',12, 'bold'), width=35, textvariable=MemID,justify='left')
+        self.txtmemberID.grid(row=0,column=1)
+
+        self.lblFirstname =Label(InnerFrame,font=('arial',12, 'bold'),text="Firstname",bd=7,anchor='w',justify='left')
+        self.lblFirstname.grid(row=0,column=0,padx=5,sticky=W)
+        self.txtFirstname = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5,width=35, textvariable=Firstname,justify='center')
+        self.txtFirstname.grid(row=1,column=1)
+
+        self.lblSurname =Label(InnerFrame,font=('arial',12, 'bold'),text="Surname",bd=7,anchor='w',justify='left')
+        self.lblSurname.grid(row=2,column=0,padx=5,sticky=W)
+        self.txtSurname = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5 ,width=35, textvariable=Surname,justify='left')
+        self.txtSurname.grid(row=2,column=1)
+
+        self.lblAddress =Label(InnerFrame,font=('arial',12, 'bold'),text="Address",bd=7,anchor='w',justify='left')
+        self.lblAddress.grid(row=0,column=2,padx=5,sticky=W)
+        self.txtAddress = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5 ,width=35, textvariable=Address,justify='left')
+        self.txtAddress.grid(row=0,column=3)
+
+        self.lblPoBox =Label(InnerFrame,font=('arial',12, 'bold'),text="Po Box",bd=7,anchor='w',justify='left')
+        self.lblPoBox.grid(row=0,column=4,padx=5,sticky=W)
+        self.txtPoBox = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5 ,width=35, textvariable=PoBox,justify='left')
+        self.txtPoBox.grid(row=0,column=5)
+
+        self.lblGender =Label(InnerFrame,font=('arial',12, 'bold'),text="Gender",bd=5)
+        self.lblGender.grid(row=1,column=2,padx=5,sticky=W)
+        self.cboGender = ttk.Combobox(InnerFrame,font=('arial',12, 'bold') ,width=33, state='readonly', textvariable=Gender)
+        self.cboGender['values']=('','Female','Male')
+        self.cboGender.current(0)
+        self.cboGender.grid(row=1,column=3)
+
+
+        self.lblEmail=Label(InnerFrame,font=('arial',12, 'bold'),text="Email",bd=7)
+        self.lblEmail.grid(row=1,column=4,padx=5,sticky=W)
+        self.txtEmail=Entry(InnerFrame,font=('arial',12, 'bold'), bd=5 ,width=35, textvariable=Email, justify='left')
+        self.txtEmail.grid(row=1,column=5)
+
+        self.lblMobile =Label(InnerFrame,font=('arial',12, 'bold'),text="Mobile",bd=5)
+        self.lblMobile.grid(row=2,column=2,padx=5,sticky=W)
+        self.txtMobile = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5 ,width=35, textvariable=Mobile)
+        self.txtMobile.grid(row=2,column=3,sticky=W)
+
+        self.lblType =Label(InnerFrame,font=('arial',12, 'bold'),text="Type",bd=7)
+        self.lblType.grid(row=2,column=4,padx=5,sticky=W)
+        self.cboType=ttk.Combobox(InnerFrame,font=('arial',12, 'bold') ,width=33, state='readonly', textvariable=Mtype)
+        self.cboType['values']=('Member Type','Annual Member','Quarterly','Monthly')
+        self.cboType.current(0)
+        self.cboType.grid(row=2,column=5)
+
+        #-----------------------------sow---------------------------
+
+        def addNew():
+            MemRef()
+            if MemID.get() =="" or Firstname.get()=="" or Surname.get()=="" :
+                tkinter.messagebox.showerror("Error Check Input","Enter correct members details") 
+            
+            else:
+                sqlCon =pymysql.connect(host="127.0.0.1", user="root",password="04122543" , database="clubmember")
+                cur = sqlCon.cursor() 
+                cur.execute("insert into member values (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
+	            MemID.get(),
+	            Firstname.get(),
+	            Surname.get(),
+	            Address.get(),
+	            PoBox.get(),
+	            Gender.get(),
+	            Mobile.get(),
+	            Email.get(),
+	            Mtype.get(),
+                ))
+                sqlCon.commit()
+                ShowRecord()
+                sqlCon.close()
+                tkinter.messagebox.showinfo("Data Entry Form", "Record Entered Successfully")
+                
+        def ShowRecord():    
+            sqlCon = pymysql.connect(host ="127.0.0.1",user="root",password="04122543" , database="clubmember")
+            cur = sqlCon.cursor()
+            cur.execute("select * from clubmember")
+            result = cur.fetchall()
+            if len(result)!= 0:
+                self.member_records.delete(*self.member_records.get_children())
+                for row in result:
+                    self.member_records.insert('',END,values=row)
+                    sqlCon.commit()
+            sqlCon.close()
+	    
+        def MemberInfo(ev):
+            viewInfo = self.member_records.focus()
+            learnerData = self.member_records.item(viewInfo)
+            row = learnerData['values']
+            MemID.set(row[0])
+            Firstname.set(row[1])
+            Surname.set(row[2])
+            Address.set(row[3])
+            PoBox.set(row[4])
+            Gender.set(row[5])
+            Mobile.set(row[6])
+            Email.set(row[7])
+            Mtype.set(row[8])
+	    
+        def update():
+            sqlCon =pymysql.connect(host="127.0.0.1",user="root",password="04122543",database="clubmember")
+            cur =sqlCon.cursor()
+            cur.execute("update clubmember set firstname=%s,surname=%s,address=%s,pobox=%s,gender=%s,"
+                        "mobile=%s,email=%s,mtype=%s where memid=%s" , (
+
+	        Firstname.get(),
+	        Surname.get(),
+	        Address.get(),
+	        PoBox.get(),
+	        Gender.get(),
+	        Mobile.get(),
+	        Email.get(),
+	        Mtype.get(),
+	        MemID.get()
+            ))
+            sqlCon.commit()
+            ShowRecord()
+            sqlCon.close()
+            tkinter.messagebox.showinfo("Data Entry Form" , "Record Successfully Updated")
+	
+        def deleteDB():
+            sqlCon =pymysql.connect(host="127.0.0.1", user="root",password="04122543", database="clubmember")
+            cur =sqlCon.cursor()
+            cur.execute("delete from clubmember where memid=%s",MemID.get())
+            sqlCon.commit()
+            ShowRecord()
+            sqlCon.close()
+            tkinter.messagebox.showinfo("Data Entry Form","Record Successfully Deleted")
+            Reset()
+        #=====================================================================================================================================
+        
+        
+        def searchDB():
+            try:
+                sqlCon = pymysql.connect(host ="127.0.0.1",user="root",password="04122543",database="clubmember" )
+                cur = sqlCon.cursor()
+                cur.execute("select * from clubmember where memid='%s'"%Search.get())
+                row = cur.fetchone()
+                MemID.set(row[0])
+                Firstname.set(row[1])
+                Surname.set(row[2])
+                Address.set(row[3])
+                PoBox.set(row[4])
+                Gender.set(row[5])
+                Mobile.set(row[6])
+                Email.set(row[7])
+                Mtype.set(row[8])
+                sqlCon.commit()
+            except:
+                tkinter.messagebox.showinfo("Data Entry Form","No Such Record Found")
+                Search.set("")
+            
+            sqlCon.close()
+
+
+        #=========================================================================================================
+        self.txtSearch = Entry(SearchFrame, font=('CCode39',13), width=33, textvariable=Search,justify='center')
+        self.txtSearch.grid(row=0,column=2)
+        self.btnSearch=Button(SearchFrame,pady=1, bd=4, font=('arial', 12,'bold'),text="Search",width=9,height=1,
+        bg='cadetblue',padx=29,command=searchDB)
+        self.btnSearch.grid(row=0,column=3,padx=1)
+        #===========================================================================================================================================================#	   
+        self.btnAddNew=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+	    width=11,height=1,text="Add New", bg="cadet blue",command=addNew).grid(row=0,column=0,padx=2)
+
+        self.btnShowRecord=Button(ButtonFrame,pady=1, bd=4,fg="black",font=('arial', 16,'bold'),padx=29,
+	    width=11,height=1,text="Show Record",bg="cadet blue",command=ShowRecord).grid(row=0, column=1,padx=2)
+        
+        self.btnUpdate=Button(ButtonFrame,pady=1, bd=4, fg="black" ,font=('arial',16,'bold'),padx=29,
+	    width=11,height=1,text="Update",bg="cadet blue",command= update).grid(row=0,column=2,padx=2)
+        
+        self.btnDelete=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+	    width=11,height=1, text="Delete",bg="cadet blue",command=deleteDB).grid(row=0,column=3,padx=2)
+        
+        self.btnReset=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+	    width=11,height=1,text="Reset",bg="cadet blue",command=Reset).grid(row=0,column=5,padx=2)
+        
+        self.btnExit=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial', 16,'bold'),padx=29,
+	    width=11, height=1,text='Exit',bg="cadet blue",command=iExit).grid(row=0,column=6,padx=4)
+        #===========================================================================================================================================================#
+        
+        scroll_y=Scrollbar(TreeviewFrame,orient=VERTICAL)
+        
+        self.member_records=ttk.Treeview(TreeviewFrame,height=12,columns=("memid" ,"firstname" ,
+	    "surname","address","pobox","gender","mobile","email" ,"mtype"), yscrollcommand=scroll_y.set)
+        
+        scroll_y.pack(side=RIGHT, fill=Y)
+        
+        self.member_records.heading("memid" ,text="MemberID.")
+        self.member_records.heading("firstname",text="Firstname")
+        self.member_records.heading("surname",text="Surname")
+        self.member_records.heading("address",text="Address")
+        self.member_records.heading("pobox",text="P0 Box")
+        self.member_records.heading("gender" ,text="Gender")
+        self.member_records.heading("mobile" ,text="Mobile")
+        self.member_records.heading("email",text="Email")
+        self.member_records.heading("mtype",text="Member Type")
+	
+        self.member_records['show']='headings '
+	
+        self.member_records.column("memid", width=148)
+        self.member_records.column("firstname" ,width=148)
+        self.member_records.column("surname",width=148)
+        self.member_records.column("address",width=148)
+        self.member_records.column("pobox",width=144)
+        self.member_records.column("gender",width=100)
+        self.member_records.column("mobile",width=148)
+        self.member_records.column("email",width=148)
+        self.member_records.column("mtype",width=148)
+	
+        self.member_records.pack(fill="both",expand=1)
+        self.member_records.bind("<ButtonRelease-1>", MemberInfo)
+        ShowRecord()
+
+
+
+
+
+
+root = Tk()
+appplication=MemberConnect(root)
+root.mainloop()
 
 
 #-----------------------------so---------------------------
 
 
 
-#-----------------------------sow---------------------------
