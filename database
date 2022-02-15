@@ -3,6 +3,30 @@
 
 
 #-----------------------------so---------------------------
+	self.1b1memberID.grid(row=0,column=0, sticky =W, padx=5)
+	self.txtmemberID = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=MemID)
+	self.txtmemberID.grid(row=0,column=1)
+
+	self.1b1Firstname = Label(InnerFrame, font=('arial',12, 'bold'),text="Firstname", bd=7, anchor='w',justify=LEFT)
+	self.1blFirstname.grid(row=1,column=0, sticky =W, padx=5)
+	self.txtFirstname = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Firstname)
+	self.txtFirstname.grid(row=1,column=1)
+
+	self.1blSurname= Label(InnerFrame,font=('arial',12, 'bold'),text="Surname",bd=7, justify=LEFT)
+	self.1blSurname.grid(row=2,column=0, sticky =W, padx=5)
+	self.txtSurname = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Surname)
+	self.txtSurname.grid(row=2,column=1)
+
+	self.1b1Address = Label(InnerFrame, font=('arial',12, 'bold'),text="Address", bd=7, )
+	self.1blAddress.grid(row=,column=2, sticky=W,padx=5)
+	self.txtAddress = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Address)
+	self.txtAddress. grid(row=,column=3)
+	
+	self.1b1POBox = Label(InnerFrame, font=('arial',12, 'bold'),text="PO Box", bd=7, )
+	self.1b1P0Box.grid(row=0,column=4, sticky =W, padx=5)
+	self.txtpoBox = Entry(InnerFrame,font=('arial', 12,'bold'), bd=5, width=35,justify = 'left',textvariable=poBox)
+	self.txtpoBox.grid(row=,column=5)
+
 	self.lblGender = Label(InnerFrame, font=('arial',12,'bold'), text = "Gender ",bd=5)
 	self.lblGender.grid(row=1,column=2, sticky = W, padx = 5)
 		
@@ -27,78 +51,30 @@
 	self.cboType['values']=('Member Type','Annual Member','Quarterly','Monthly')
 	self.cboType.current(0)
 	self.cboType.grid(row=2,column=5)
+def addNew():
+	MemRef()
+	if MemID.get() =="" or Firstname get()=="" or Surname.get()=="" :
+		tkinter .messagebox.showerror("Error Check Input","Enter correct members details")
+	else:
+		sqlcon =pymysq1.connect(host="1ocalhost",user="root",password="12345", database="member")
+		cur =sqlcon.cursor()
+		cur.execute("insert into member values(%s,%s,%s,%s,%s,%s,%s,%s,%s)”,(
 
-	#================================ต้องสร้างถัง databases=========================================================#
+		MemID.get(),
+		Firstname.get(),
+		Surname.get(),
+		Address.get(),
+		PoBox.get(),
+		Gender.get(),
+		Mobile.get(),
+		Email.get(),
+		MType.get(),
+		))
 
-	def ShowRecord():
-		sqlCon = pymysql.connect(host = "locahost", user = "root" , password = "xxxxx" database = "clubmember")
-		cur = sqlCon.cursor()
-		cur.excute("select*from clubmeber")
-		result = cur.fetchall()
-		if len(result)!=0:
-			self.member_records.delete(*self.member_record.get_children())
-			for row in result: 
-				self.member_records.insert('',END, values = row)
-			sqlCon.commit()
-		sqlCon.close()
-
-	def MemberInfor(ev):
-
-		viewInfo = self.member_records.focus()
-		learnerData = self.member_records.item(viewInfo)
-		row = lea['values']
-
-		MemID.set(row[0])
-		Firstname.set(row[1])
-		Surname.set(row[2])
-		Address.set(row[3])
-		PoBox.set(row[4])		
-		Gender.set(row[5])
-		Mobile.set(row[6])
-		Email.set(row[7])
-		MType.set(row[8])
-
-	#==============================================================================================================================#
-
-	self.btnAddNew = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Add New", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
-	self.btnShowRecord = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Show Record", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
-	self.btnUpdate = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Update", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
-	self.btnDelete = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Delete", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
-	self.btnReset = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Reset", width=11, height=1, bg= "cadet blue", padx=29).grid(row, colmn=0, padx=1)
-	self.btnExit = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Exit", width=11, height=1, bg= "cadet blue", padx=29).grid(row, colmn=0, padx=1)
-
-	#===========================================================================================================================================================#
-
-
-	scroll_y = Scrollbar(TreeviewFrame,orient= VERTICAL)
-	self.member_records - ttk.Treeview(TreeviewFrame, heigth=12, columns=("memid", "firstname", "surname", "address", "pobox", "gender", "mobile", "email", "mtype"), yscrollcommand = scroll_y.set)
-	scroll_y.pack(side=RIGHT, fill=Y)
-
-	self.member_records.headings("memid", text = "MemberID.")
-	self.member_records.headings("firstname", text = "Firstname")
-	self.member_records.headings("surnamr", text = "Surname")
-	self.member_records.headings("address", text = "Address")
-	self.member_records.headings("pobox", text = "PP Box")
-	self.member_records.headings("gender", text = "Gender")
-	self.member_records.headings("mobile", text = "Mobile")
-	self.member_records.headings("email", text = "Email")
-	self.member_records.headings("mtype", text = "Member Type")
-
-	self.member_records['show']= 'headings'
-
-	self.member_records.column("memid", width = 148)
-	self.member_records.column("firstname", width = 148)
-	self.member_records.column("surnamr", width = 148)
-	self.member_records.column("address", width = 148)
-	self.member_records.column("pobox", width = 148)
-	self.member_records.column("gender", width = 148)
-	self.member_records.column("mobile", width = 148)
-	self.member_records.column("email", width = 148)
-	self.member_records.column("mtype", width = 148)
-
-	self.member_records.pack(fill=BOTH, expand=1)
-	self.member_records.bind("<ButtonRelease-1>", MemberInfo)
-	ShowRecord()
+		sqlcon.commit()
+		showRecord()
+		sqlcon.close()
+		tkinter .messagebox.showinfo("Data Entry Form","Record Entered Successfully")
 
 #-----------------------------sow---------------------------  นาทีที่ 1:23.13  ลงไป
 
