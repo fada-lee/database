@@ -211,22 +211,39 @@ def searchDB():
 	   
 	sqlcon.close()
 #===========================================================================================================================================================#	   
-self.btnAddNew=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
-width=11,height=1,text="Add New", bg="cadet blue").grid(row=0,column=0,padx=2)
+	self.btnAddNew=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+	width=11,height=1,text="Add New", bg="cadet blue").grid(row=0,column=0,padx=2)
 
-self.btnShowRecord=Button(ButtonFrame,pady=1, bd=4,fg="black",font=('arial', 16,'bold'),padx=29,
-width=11,height=1,text="Show Record",bg="cadet blue").grid(row=0, column=1,padx=2)
+	self.btnShowRecord=Button(ButtonFrame,pady=1, bd=4,fg="black",font=('arial', 16,'bold'),padx=29,
+	width=11,height=1,text="Show Record",bg="cadet blue").grid(row=0, column=1,padx=2)
 
-self.btnUpdate=Button(ButtonFrame,pady=1, bd=4, fg="black" ,font=('arial',16,'bold'),padx=29,
-width=11,height=1,text="Update",bg="cadet blue",command= update).grid(row=0,column=2,padx=2)
+	self.btnUpdate=Button(ButtonFrame,pady=1, bd=4, fg="black" ,font=('arial',16,'bold'),padx=29,
+	width=11,height=1,text="Update",bg="cadet blue",command= update).grid(row=0,column=2,padx=2)
 
-self.btnDelete=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
-width=11,height=1, text="Delete",bg="cadet blue",command=deleteDB).grid(row=0,column=3,padx=2)
+	self.btnDelete=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+	width=11,height=1, text="Delete",bg="cadet blue",command=deleteDB).grid(row=0,column=3,padx=2)
 
-self.btnReset=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
-width=11,height=1,text="Reset",bg="cadet blue",command=Reset).grid(row=0,column=5,padx=2)
+	self.btnReset=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+	width=11,height=1,text="Reset",bg="cadet blue",command=Reset).grid(row=0,column=5,padx=2)
 
-self.btnExit=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial', 16,'bold'),padx=29,
-width=11, height=1,text='Exit',bg="cadet blue",command=iExit).grid(row=0,column=6,padx=4)
+	self.btnExit=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial', 16,'bold'),padx=29,
+	width=11, height=1,text='Exit',bg="cadet blue",command=iExit).grid(row=0,column=6,padx=4)
 #===========================================================================================================================================================#
-scroll_y=Scrollbar(TreeviewFrame,orient=VERTICAL)
+	scroll_y=Scrollbar(TreeviewFrame,orient=VERTICAL)
+	
+	self.member_records=ttk.Treeview(TreeviewFrame,height=12,columns=("memid" ,"firstname" ,
+	"surname","address","pobox","gender","mobile","email" ,"mtype"), yscrollcommand=scrolly.set)
+	
+	scroll_y.pack(side=RIGHT, fill=Y)
+	
+	self.member_records.heading("memid" ,text="MemberID.")
+	self.member_records.heading("firstname",text="Firstname")
+	self.member_records.heading("surname",text="Surname")
+	self.member_records.heading("address",text="Address")
+	self.member_records.heading("pobox",text="P0 Box")
+	self.member_records.heading("gender" ",text="Gender")
+	self.member_records.heading("mobile" ,text="Mobile")
+	self.member_records.heading("email",text="Email")
+	self.member_records.heading("mtype",text="Member Type")
+	
+	self.member_records['show']='headings '
