@@ -101,23 +101,60 @@
 	ShowRecord()
 
 #-----------------------------sow---------------------------  นาทีที่ 1:23.13  ลงไป
+
+def addNew():
+	MemRef()
+	if MemID.get() =="" orㆍ Firstname.get()=="" or Surname.get()=="" :
+	    tkinter.messagebox.showerror("Error Check Input","Enter correct members details")
+	else:
+	    sqlCon =pymysql.connect(host="localhost", user="root",password="12345" , database="member")
+	    cur =sqlCon.cursor()
+	    cur.execute("insert into member values (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
+	    
+	    MemID.get(),
+	    Firstname.get(),
+	    Surname.get(),
+	    Address.get(),
+	    PoBox.get(),
+	    Gender.get(),
+	    Mobile.get(),
+	    Email.get(),
+	    MType.get(),
+	    
+	    ))
+	    
+	    sqlCon.commit()
+	    ShowRecord()
+	    sqlCon.close()
+	    tkinter.messagebox.showinfo("Data Entry Form", "Record Entered Successfully")
+
+def ShowRecord():    
+	sqlCon = pymysql.connect(host ="localhost",user="root",password="12345" , database="clubmember")
+	cur = sqlCon.cursor()
+	cur.execute("select * from clubmember")
+	result = cur.fetchall()
+	if len(result)!= 0:
+	    self.member_records.delete(*self.member_records.get_children())
+	    for row in result:
+	    	    self.member_records.insert('',END,values=row)
+	    sqlCon.commit()
+	sqlCon.close()
+	    
 def MemberInfp(ev):
-
-    viewInfo = self.member_records.focus()
-    learnerData = self.member_records.item(viewInfo)
-    row = learnerData['values']
-
-    MemID.set(row[0])
-    Firstname.set(row[1])
-    Surname.set(row[2])
-    Address.set(row[3])
-    PoBox.set(row[4])
-    Gender.set(row[5])
-    Mobile.set(row[6])
-    Email.set(row[7])
-    MType.set(row[8])
-
-#-----------------------------sow--------------------------- 
+	viewInfo = self.member_records.focus()
+	learnerData = self.member_records.item(viewInfo)
+	row = learnerData['values']
+	
+	MemID.set(row[0])
+	Firstname.set(row[1])
+	Surname.set(row[2])
+	Address.set(row[3])
+	PoBox.set(row[4])
+	Gender.set(row[5])
+	Mobile.set(row[6])
+	Email.set(row[7])
+	MType.set(row[8])
+	    
 def update():
 	sqlCon =pymysql.connect(host="localhost",user="root",password="1234",database="clubmember")
 	cur =sqlCon.cursor()
@@ -174,4 +211,8 @@ def searchDB():
 	   
 	sqlcon.close()
 #===========================================================================================================================================================#	   
-	   
+self.btnAddNew=Button(ButtonFrame,pady=1, bd=4, fg="black",font=('arial',16,'bold'),padx=29,
+width=11,height=1,text="Add New", bg="cadet blue").grid(row=0,column=0,padx=2)
+
+self.btnShowRecord=Button(ButtonFrame,pady=1, bd=4,fg="black",font=('arial', 16,'bold'),padx=29,
+width=11,height=1,text="Show Record",bg="cadet blue").grid(row=0, column=1,padx=2)
