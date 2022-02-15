@@ -261,3 +261,9 @@ def searchDB():
 	self.member_records.pack(fill=B0TH,expand=1)
 	self.member_records.bind("<ButtonRelease-1>", MemberInfo)
 	ShowRecord()
+#===========================================================================================================================================================#
+
+if__name__=='__main__':
+	root =Tk()
+	application = memberConnect(root)
+	root.mainloop()
