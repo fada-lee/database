@@ -247,3 +247,17 @@ def searchDB():
 	self.member_records.heading("mtype",text="Member Type")
 	
 	self.member_records['show']='headings '
+	
+	self.member_records.column("memid", width=148)
+	self.member_records.column("firstname" ,width=148)
+	self.member_records.column("surname",width=148)
+	self.member_records.column("address",width=148)
+	self.member_records.column("pobox",width=144)
+	self.member_records.column("gender",width=100)
+	self.member_records.column("mobile",width=148)
+	self.member_records.column("email",width=148)
+	self.member_records.column("mtype",width=148)
+	
+	self.member_records.pack(fill=B0TH,expand=1)
+	self.member_records.bind("<ButtonRelease-1>", MemberInfo)
+	ShowRecord()
