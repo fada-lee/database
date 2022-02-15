@@ -3,27 +3,27 @@
 
 
 #-----------------------------so---------------------------
-	self.1b1memberID.grid(row=0,column=0, sticky =W, padx=5)
+	self.lblmemberID.grid(row=0,column=0, sticky =W, padx=5)
 	self.txtmemberID = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=MemID)
 	self.txtmemberID.grid(row=0,column=1)
 
-	self.1b1Firstname = Label(InnerFrame, font=('arial',12, 'bold'),text="Firstname", bd=7, anchor='w',justify=LEFT)
-	self.1blFirstname.grid(row=1,column=0, sticky =W, padx=5)
+	self.lblFirstname = Label(InnerFrame, font=('arial',12, 'bold'),text="Firstname", bd=7, anchor='w',justify=LEFT)
+	self.lblFirstname.grid(row=1,column=0, sticky =W, padx=5)
 	self.txtFirstname = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Firstname)
 	self.txtFirstname.grid(row=1,column=1)
 
-	self.1blSurname= Label(InnerFrame,font=('arial',12, 'bold'),text="Surname",bd=7, justify=LEFT)
-	self.1blSurname.grid(row=2,column=0, sticky =W, padx=5)
+	self.lblSurname= Label(InnerFrame,font=('arial',12, 'bold'),text="Surname",bd=7, justify=LEFT)
+	self.lblSurname.grid(row=2,column=0, sticky =W, padx=5)
 	self.txtSurname = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Surname)
 	self.txtSurname.grid(row=2,column=1)
 
-	self.1b1Address = Label(InnerFrame, font=('arial',12, 'bold'),text="Address", bd=7, )
-	self.1blAddress.grid(row=,column=2, sticky=W,padx=5)
+	self.lblAddress = Label(InnerFrame, font=('arial',12, 'bold'),text="Address", bd=7, )
+	self.lblAddress.grid(row=,column=2, sticky=W,padx=5)
 	self.txtAddress = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Address)
 	self.txtAddress. grid(row=,column=3)
 	
-	self.1b1POBox = Label(InnerFrame, font=('arial',12, 'bold'),text="PO Box", bd=7, )
-	self.1b1P0Box.grid(row=0,column=4, sticky =W, padx=5)
+	self.lblPOBox = Label(InnerFrame, font=('arial',12, 'bold'),text="PO Box", bd=7, )
+	self.lblP0Box.grid(row=0,column=4, sticky =W, padx=5)
 	self.txtpoBox = Entry(InnerFrame,font=('arial', 12,'bold'), bd=5, width=35,justify = 'left',textvariable=poBox)
 	self.txtpoBox.grid(row=,column=5)
 
@@ -51,30 +51,7 @@
 	self.cboType['values']=('Member Type','Annual Member','Quarterly','Monthly')
 	self.cboType.current(0)
 	self.cboType.grid(row=2,column=5)
-def addNew():
-	MemRef()
-	if MemID.get() =="" or Firstname get()=="" or Surname.get()=="" :
-		tkinter .messagebox.showerror("Error Check Input","Enter correct members details")
-	else:
-		sqlcon =pymysq1.connect(host="1ocalhost",user="root",password="12345", database="member")
-		cur =sqlcon.cursor()
-		cur.execute("insert into member values(%s,%s,%s,%s,%s,%s,%s,%s,%s)”,(
 
-		MemID.get(),
-		Firstname.get(),
-		Surname.get(),
-		Address.get(),
-		PoBox.get(),
-		Gender.get(),
-		Mobile.get(),
-		Email.get(),
-		MType.get(),
-		))
-
-		sqlcon.commit()
-		showRecord()
-		sqlcon.close()
-		tkinter .messagebox.showinfo("Data Entry Form","Record Entered Successfully")
 
 #-----------------------------sow---------------------------  นาทีที่ 1:23.13  ลงไป
 
