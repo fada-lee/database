@@ -133,3 +133,45 @@ def update():
 	MType.get(),
 	MemID.get()
 	))
+	sqlCon.commit()
+	ShowRecord()
+	sqlCon.close()
+	tkinter.messagebox.showinfo("Data Entry Form" , "Record Successfully Updated")
+	
+def deleteDB():
+	sqlCon =pymysql.connect(host="localhost", user="root",password="12345", database="clubmember")
+	cur =sqlCon.cursor()
+	cur.execute("delete from clubmember where memid=%s",MemID.get())
+	
+	sqlCon.commit()
+	ShowRecord()
+	sqlCon.close()
+	tkinter.messagebox.showinfo("Data Entry Form","Record Successfully Deleted")
+	Reset()
+#===========================================================================================================================================================#
+def searchDB():
+	try:
+	   sqlCon = pymysql.connect(host ="localhost",user-"root",password="12345",database="clubmember" )
+	   cur = sqlCon.cursor()
+	   cur.execute("select * from clubmember where memid='%s'"%Search.get())
+	   
+	   row = cur.fetchone()
+	   
+	   MemID.set(row[0])
+	   Firstname.set(row[1])
+	   Surname.set(row[2])
+	   Address.set(row[3])
+	   PoBox.set(row[4])
+	   Gender.set(row[5])
+	   Mobile.set(row[6])
+	   Email.set(row[7])
+	   MType.set(row[8])
+	   
+	   sqlCon.commit()
+	except:
+	   tkinter.messagebox.showinfo("Data Entry Form","No Such Record Found")
+	   Search.set("")
+	   
+	sqlcon.close()
+#===========================================================================================================================================================#	   
+	   
