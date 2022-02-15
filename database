@@ -3,7 +3,12 @@
 
 
 #-----------------------------so---------------------------
-self.cboGender.current(0)
+	self.lblGender = Label(InnerFrame, font=('arial',12,'bold'), text = "Gender ",bd=5)
+	self.lblGender.grid(row=1,column=2, sticky = W, padx = 5)
+		
+	self.cboGender = ttk.Combobox(InnerFrame, width = 33, font=('arial',12,'bold'), state = 'readonly', textvariable = Gender)
+	self.cboGender['values']=('','Female','Male')
+	self.cboGender.current(0)
 	self.cboGender.grid(row=1,column=3)
 
 	self.lblEmail = Label(InnerFrame,font=('arial',12,'bold'), text = "Email ",bd=7)
@@ -23,10 +28,81 @@ self.cboGender.current(0)
 	self.cboType.current(0)
 	self.cboType.grid(row=2,column=5)
 
+	#================================ต้องสร้างถัง databases=========================================================#
 
-#-----------------------------sow---------------------------
+	def ShowRecord():
+		sqlCon = pymysql.connect(host = "locahost", user = "root" , password = "xxxxx" database = "clubmember")
+		cur = sqlCon.cursor()
+		cur.excute("select*from clubmeber")
+		result = cur.fetchall()
+		if len(result)!=0:
+			self.member_records.delete(*self.member_record.get_children())
+			for row in result: 
+				self.member_records.insert('',END, values = row)
+			sqlCon.commit()
+		sqlCon.close()
+
+	def MemberInfor(ev):
+
+		viewInfo = self.member_records.focus()
+		learnerData = self.member_records.item(viewInfo)
+		row = lea['values']
+
+		MemID.set(row[0])
+		Firstname.set(row[1])
+		Surname.set(row[2])
+		Address.set(row[3])
+		PoBox.set(row[4])		
+		Gender.set(row[5])
+		Mobile.set(row[6])
+		Email.set(row[7])
+		MType.set(row[8])
+
+	#==============================================================================================================================#
+
+	self.btnAddNew = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Add New", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
+	self.btnShowRecord = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Show Record", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
+	self.btnUpdate = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Update", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
+	self.btnDelete = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Delete", width=11, height=1, bg="cadet blue", padx=29).grid(row, colmn=0, padx=1)
+	self.btnReset = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Reset", width=11, height=1, bg= "cadet blue", padx=29).grid(row, colmn=0, padx=1)
+	self.btnExit = Button(ButtonFrame, pady=1, bd=4, font=('arial',12,'bold') text = "Exit", width=11, height=1, bg= "cadet blue", padx=29).grid(row, colmn=0, padx=1)
+
+	#===========================================================================================================================================================#
+
+
+	scroll_y = Scrollbar(TreeviewFrame,orient= VERTICAL)
+	self.member_records - ttk.Treeview(TreeviewFrame, heigth=12, columns=("memid", "firstname", "surname", "address", "pobox", "gender", "mobile", "email", "mtype"), yscrollcommand = scroll_y.set)
+	scroll_y.pack(side=RIGHT, fill=Y)
+
+	self.member_records.headings("memid", text = "MemberID.")
+	self.member_records.headings("firstname", text = "Firstname")
+	self.member_records.headings("surnamr", text = "Surname")
+	self.member_records.headings("address", text = "Address")
+	self.member_records.headings("pobox", text = "PP Box")
+	self.member_records.headings("gender", text = "Gender")
+	self.member_records.headings("mobile", text = "Mobile")
+	self.member_records.headings("email", text = "Email")
+	self.member_records.headings("mtype", text = "Member Type")
+
+	self.member_records['show']= 'headings'
+
+	self.member_records.column("memid", width = 148)
+	self.member_records.column("firstname", width = 148)
+	self.member_records.column("surnamr", width = 148)
+	self.member_records.column("address", width = 148)
+	self.member_records.column("pobox", width = 148)
+	self.member_records.column("gender", width = 148)
+	self.member_records.column("mobile", width = 148)
+	self.member_records.column("email", width = 148)
+	self.member_records.column("mtype", width = 148)
+
+	self.member_records.pack(fill=BOTH, expand=1)
+	self.member_records.bind("<ButtonRelease-1>", MemberInfo)
+	ShowRecord()
+
+#-----------------------------sow---------------------------  นาทีที่ 1:23.13  ลงไป
 def MemberInfp(ev):
-#-----------------------------sow--------------------------- นาทีที่ 1:23.13  ลงไป
+
     viewInfo = self.member_records.focus()
     learnerData = self.member_records.item(viewInfo)
     row = learnerData['values']
@@ -43,3 +119,17 @@ def MemberInfp(ev):
 
 #-----------------------------sow--------------------------- 
 def update():
+	sqlCon =pymysql.connect(host="localhost",user="root",password="1234",database="clubmember")
+	cur =sqlCon.cursor()
+	cur.execute("update clubmember set firstname=%s,surname=%s,address=%s,pobox=%s,gender=%s,"
+		    "mobile=%s,email=%s,mtype=%s where memid=%s" , (
+	Firstname.get(),
+	Surname.get(),
+	Address.get(),
+	PoBox.get(),
+	Gender.get(),
+	Mobile.get(),
+	Email.get(),
+	MType.get(),
+	MemID.get()
+	))
