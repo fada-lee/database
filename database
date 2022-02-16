@@ -59,7 +59,7 @@ class MemberConnect:
             MemIDBar.set(RefBC)
 
         #===========================FRAME===========================================
-        MainFrame = Frame(self.root , bd=10, width = 1350, height=668, relief = RIDGE, bg = 'cadetblue')
+        MainFrame = Frame(self.root , bd=10, width = 1350, height=668, relief = RIDGE, bg = 'cadet blue')
         MainFrame.grid()
         TitleFrames = Frame(MainFrame , bd=7, width = 1320, height=100, relief = RIDGE)
         TitleFrames.grid(row=0,column=0)
@@ -67,39 +67,41 @@ class MemberConnect:
         TitleFrame = Frame(TitleFrames , bd=7, width = 1320, height=100, relief = RIDGE, bg = 'cadetblue')
         TitleFrame.grid(row=0,column=0)
 
-        SearchFrame = Frame(MainFrame , bd=5, width = 1340, height=50, relief = RIDGE)
+        SearchFrame = Frame(MainFrame , bd=5, width = 1340, height=500, relief = RIDGE)
         SearchFrame.grid(row=1,column=0)
 
-        MidFrame = Frame(MainFrame , bd=5, width = 1340, height=500, relief = RIDGE)
+        MidFrame = Frame(MainFrame , bd=5, width = 1340, height=500, relief = RIDGE,bg ='cadetblue')
         MidFrame.grid(row=3,column=0)
 
         InnerFrame = Frame(MidFrame,bd=5, width =1340,height=180,padx=24,pady=4,relief=RIDGE)
-        InnerFrame.grid(row=0 ,column= 9)
+        InnerFrame.grid(row=0 ,column= 0)
         ButtonFrame = Frame(MidFrame ,bd=7,width =1340, height=50 ,bg="cadet blue" ,relief=RIDGE)
         ButtonFrame.grid(row= 1 ,column= 0)
         TreeviewFrame = Frame(MidFrame ,bd=5,width =1340,height=400, padx=4,relief=RIDGE)#,bg="cadet blue"
         TreeviewFrame.grid(row = 2 ,column = 0,padx=5,pady=0)
 
         #==========================LABEL========================================================================
-        self.lblTitle = Label(TitleFrames, font=('arial',40,'bold'),text="Mysql Connection",bg="cadet blue",fg="white")
-        self.lblTitle.grid(row=0,column=0,padx=90)
-        self.lblHunter = Label(TitleFrames,font=('C39Hrp24DhTt', 60),text="Dynamic Hunter" ,fg="cadet blue" )
-        self.lblHunter.grid(row=0,column=1,padx=152)
+        self.lblTitle = Label(TitleFrames, font=('arial',40,'bold'),text="Mysql Connection",bg="cadet blue",fg="white",justify='left')
+        self.lblTitle.place(x=50, y=20)
+        self.lblHunter = Label(TitleFrames,font=('c39hrp24dhtt', 60),text="Dynamic Hunter" ,fg="cadet blue" ,justify='right')
+        self.lblHunter.place(x=800, y=8)
+        #self.lblHunter.grid(row=0,column=0,padx=152)
+        
         #========
         self.lblBarCode =Label(SearchFrame,font=('arial',12, 'bold'),text="Barcode")
         self.lblBarCode.grid(row=0,column=0,padx=4,sticky=W)
-        self.txtBarCode = Entry(SearchFrame,font=('CCode39',13), width=26, textvariable=MemIDBar,justify='center')
-        self.txtBarCode.grid(row=0,column=1,padx=39)
+        self.txtBarCode = Entry(SearchFrame,font=('c39hrp24dhtt',20), width=55, textvariable=MemIDBar,justify='left')
+        self.txtBarCode.grid(row=0,column=1,padx=45)
         #=========
 
         self.lblmemberID =Label(InnerFrame,font=('arial',12, 'bold'),text="Member ID",bd=7,anchor='w',justify='left')
         self.lblmemberID.grid(row=0,column=0,padx=5,sticky=W)
-        self.txtmemberID = Entry(InnerFrame,font=('arial',12, 'bold'), width=35, textvariable=MemID,justify='left')
+        self.txtmemberID = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5,width=35, textvariable=MemID,justify='left')
         self.txtmemberID.grid(row=0,column=1)
 
         self.lblFirstname =Label(InnerFrame,font=('arial',12, 'bold'),text="Firstname",bd=7,anchor='w',justify='left')
-        self.lblFirstname.grid(row=0,column=0,padx=5,sticky=W)
-        self.txtFirstname = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5,width=35, textvariable=Firstname,justify='center')
+        self.lblFirstname.grid(row=1,column=0,padx=5,sticky=W)
+        self.txtFirstname = Entry(InnerFrame,font=('arial',12, 'bold'), bd=5,width=35, textvariable=Firstname,justify='left')
         self.txtFirstname.grid(row=1,column=1)
 
         self.lblSurname =Label(InnerFrame,font=('arial',12, 'bold'),text="Surname",bd=7,anchor='w',justify='left')
@@ -147,12 +149,12 @@ class MemberConnect:
         def addNew():
             MemRef()
             if MemID.get() =="" or Firstname.get()=="" or Surname.get()=="" :
-                tkinter.messagebox.showerror("Error Check Input","Enter correct members details") 
+                tkinter.messagebox.showerror("Error Check Input","Enter correct clubmembers details") 
             
             else:
                 sqlCon =pymysql.connect(host="127.0.0.1", user="root",password="04122543" , database="clubmember")
                 cur = sqlCon.cursor() 
-                cur.execute("insert into member values (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
+                cur.execute("insert into clubmembers values (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
 	            MemID.get(),
 	            Firstname.get(),
 	            Surname.get(),
@@ -171,7 +173,7 @@ class MemberConnect:
         def ShowRecord():    
             sqlCon = pymysql.connect(host ="127.0.0.1",user="root",password="04122543" , database="clubmember")
             cur = sqlCon.cursor()
-            cur.execute("select * from clubmember")
+            cur.execute("select * from clubmembers")
             result = cur.fetchall()
             if len(result)!= 0:
                 self.member_records.delete(*self.member_records.get_children())
@@ -197,7 +199,7 @@ class MemberConnect:
         def update():
             sqlCon =pymysql.connect(host="127.0.0.1",user="root",password="04122543",database="clubmember")
             cur =sqlCon.cursor()
-            cur.execute("update clubmember set firstname=%s,surname=%s,address=%s,pobox=%s,gender=%s,"
+            cur.execute("update clubmembers set firstname=%s,surname=%s,address=%s,pobox=%s,gender=%s,"
                         "mobile=%s,email=%s,mtype=%s where memid=%s" , (
 
 	        Firstname.get(),
@@ -218,7 +220,7 @@ class MemberConnect:
         def deleteDB():
             sqlCon =pymysql.connect(host="127.0.0.1", user="root",password="04122543", database="clubmember")
             cur =sqlCon.cursor()
-            cur.execute("delete from clubmember where memid=%s",MemID.get())
+            cur.execute("delete from clubmembers where memid=%s",MemID.get())
             sqlCon.commit()
             ShowRecord()
             sqlCon.close()
@@ -231,7 +233,7 @@ class MemberConnect:
             try:
                 sqlCon = pymysql.connect(host ="127.0.0.1",user="root",password="04122543",database="clubmember" )
                 cur = sqlCon.cursor()
-                cur.execute("select * from clubmember where memid='%s'"%Search.get())
+                cur.execute("select * from clubmembers where memid='%s'"%Search.get())
                 row = cur.fetchone()
                 MemID.set(row[0])
                 Firstname.set(row[1])
@@ -251,7 +253,7 @@ class MemberConnect:
 
 
         #=========================================================================================================
-        self.txtSearch = Entry(SearchFrame, font=('CCode39',13), width=33, textvariable=Search,justify='center')
+        self.txtSearch = Entry(SearchFrame, font=('arial',20), width=33, textvariable=Search,justify='left')
         self.txtSearch.grid(row=0,column=2)
         self.btnSearch=Button(SearchFrame,pady=1, bd=4, font=('arial', 12,'bold'),text="Search",width=9,height=1,
         bg='cadetblue',padx=29,command=searchDB)
@@ -308,7 +310,7 @@ class MemberConnect:
         self.member_records.pack(fill="both",expand=1)
         self.member_records.bind("<ButtonRelease-1>", MemberInfo)
         ShowRecord()
-        
+
 if __name__=='__main__':
     root = Tk()
     appplication=MemberConnect(root)
