@@ -308,67 +308,8 @@ class MemberConnect:
         self.member_records.pack(fill="both",expand=1)
         self.member_records.bind("<ButtonRelease-1>", MemberInfo)
         ShowRecord()
-
-
-
-
-
-
-root = Tk()
-appplication=MemberConnect(root)
-root.mainloop()
-
-
-#-----------------------------so---------------------------
-	self.lblmemberID.grid(row=0,column=0, sticky =W, padx=5)
-	self.txtmemberID = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=MemID)
-	self.txtmemberID.grid(row=0,column=1)
-
-	self.lblFirstname = Label(InnerFrame, font=('arial',12, 'bold'),text="Firstname", bd=7, anchor='w',justify=LEFT)
-	self.lblFirstname.grid(row=1,column=0, sticky =W, padx=5)
-	self.txtFirstname = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Firstname)
-	self.txtFirstname.grid(row=1,column=1)
-
-	self.lblSurname= Label(InnerFrame,font=('arial',12, 'bold'),text="Surname",bd=7, justify=LEFT)
-	self.lblSurname.grid(row=2,column=0, sticky =W, padx=5)
-	self.txtSurname = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Surname)
-	self.txtSurname.grid(row=2,column=1)
-
-	self.lblAddress = Label(InnerFrame, font=('arial',12, 'bold'),text="Address", bd=7, )
-	self.lblAddress.grid(row=,column=2, sticky=W,padx=5)
-	self.txtAddress = Entry(InnerFrame,font=('arial', 12, 'bold'), bd=5, width=35,justify = 'left',textvariable=Address)
-	self.txtAddress. grid(row=,column=3)
-	
-	self.lblPOBox = Label(InnerFrame, font=('arial',12, 'bold'),text="PO Box", bd=7, )
-	self.lblP0Box.grid(row=0,column=4, sticky =W, padx=5)
-	self.txtpoBox = Entry(InnerFrame,font=('arial', 12,'bold'), bd=5, width=35,justify = 'left',textvariable=poBox)
-	self.txtpoBox.grid(row=,column=5)
-
-	self.lblGender = Label(InnerFrame, font=('arial',12,'bold'), text = "Gender ",bd=5)
-	self.lblGender.grid(row=1,column=2, sticky = W, padx = 5)
-		
-	self.cboGender = ttk.Combobox(InnerFrame, width = 33, font=('arial',12,'bold'), state = 'readonly', textvariable = Gender)
-	self.cboGender['values']=('','Female','Male')
-	self.cboGender.current(0)
-	self.cboGender.grid(row=1,column=3)
-
-	self.lblEmail = Label(InnerFrame,font=('arial',12,'bold'), text = "Email ",bd=7)
-	self.lblEmail.grid(row=1,column=4, sticky = W, padx = 5)
-	self.txtEmail = Entry(InnerFrame, font=('arial',12,'bold'),bd = 5, width = 35, justify = 'left', textvariable = Email)
-	self.txtEmail.grid(row=1,column=3)
-
-	self.lblMobile = Label(InnerFrame,font=('arial',12,'bold'), text = "Mobile ",bd=5)
-	self.lblMobile.grid(row=2,column=2, sticky = W, padx = 5)
-	self.txtMobile = Entry(InnerFrame, font=('arial',12,'bold'),bd = 5, width = 35, justify = 'left', textvariable = Email)
-	self.txtMobile.grid(row=2, column=3, sticky = W)
-	self.lblAddress = Label(InnerFrame,font=('arial',12,'bold'), text = "Type ",bd=7)
-	self.lblAddress.grid(row=2,column=4, sticky = W, padx = 5)
-
-	self.cboTyp = ttk.combobox(InnerFrame, width = 33, font=('arial',12,'bold'), state = 'readonly', textvariable = MType)		
-	self.cboType['values']=('Member Type','Annual Member','Quarterly','Monthly')
-	self.cboType.current(0)
-	self.cboType.grid(row=2,column=5)
-
-
-#-----------------------------sow---------------------------  นาทีที่ 1:23.13  ลงไป
-
+        
+if __name__=='__main__':
+    root = Tk()
+    appplication=MemberConnect(root)
+    root.mainloop()
